@@ -7,40 +7,44 @@ Created on Sat Jun 19 14:32:37 2021
 
 import mysql.connector 
 
+
 class dbconnection(object):
     def __init__(self, db_cfg):
         '''
             Create Database communication interface
             db_cfg: {host:<HOST IP>,key:<Database User ID>,val:<password>,db:<Database Name>}
         '''        
-        self.db_cfg = db_cfg
+        self.cfg = db_cfg
 
     def createconnection(self):
         '''
             Return Database connection Based on Configuration
         '''
-        print(self.db_cfg)
         try:
-             self.conn = mysql.connector.connect(host= self.db_cfg['host'],
-                                       user= self.db_cfg['key'],
-                                       password=self.db_cfg['val'] )
+             self.conn = mysql.connector.connect(host= self.cfg['host'],
+                                       user= self.cfg['key'],
+                                       password=self.cfg['val'] )
         except Exception as ex:
             raise ex
 
      
-    def createdb(self):
+    def createdb(self,sql):
         '''
-            Create Database Database based on onfiguration 
+            Create Database based on configuration
+            sql: Sql Statement
             Raise error in case of failure
         '''
         try:
             with self.conn.cursor() as cursor:
-                cursor.execute("CREATE DATABASE IF NOT EXISTS "+self.db_cfg['db'])
+                cursor.execute(sql)
         except mysql.connector.Error as ex:
             raise ex
             
     def dbList(self):
-        
+        '''
+            Fetches list of existing Database based on onfiguration 
+            Raise error in case of failure
+        '''        
         dblst=[]
         try:
             show_db_query = "SHOW DATABASES"
@@ -52,26 +56,77 @@ class dbconnection(object):
             raise ex
         return dblst
     
-    def createTable(self):
-        sql = "CREATE TABLE IF NOT EXISTS " +self.db_cfg['db']+'''.Students 
-                    (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255))'''
+    def createTable(self,sql):
+        '''
+            Create Table
+            Raise error in case of failure
+        '''           
         try:
             with self.conn.cursor() as cursor:
                 cursor.execute(sql) 
         except mysql.connector.Error as ex:
             raise ex
 
-    def fetch(self,sql):
+    def alterTable(self,sql):
+        '''
+            Alter Table
+            Raise error in case of failure
+        '''  
         try:
             with self.conn.cursor() as cursor:
                 cursor.execute(sql) 
         except mysql.connector.Error as ex:
-            raise ex  
+            raise ex
 
-    def insert(self,insertstmt):
+    def fetchData(self,sql):
+        '''
+            Fetch Data
+            Raise error in case of failure
+        '''   
         try:
             with self.conn.cursor() as cursor:
-                cursor.execute(insertstmt) 
+                cursor.execute(sql) 
+                data = cursor.fetchall()
+                return data
+        except mysql.connector.Error as ex:
+            raise ex  
+
+    def updateData(self,sql):
+        '''
+            Update Data
+            SQL: sql to be executed
+            Raise error in case of failure
+        '''   
+        try:
+            with self.conn.cursor() as cursor:
+                cursor.execute(sql) 
+            self.conn.commit()   
+        except mysql.connector.Error as ex:
+            raise ex  
+
+    def removeData(self,sql):
+        '''
+            Remove Data
+            SQL: sql to be executed
+            Raise error in case of failure
+        '''   
+        try:
+            with self.conn.cursor() as cursor:
+                cursor.execute(sql) 
+            self.conn.commit()   
+        except mysql.connector.Error as ex:
+            raise ex 
+
+
+    def insert(self,insertstmt):
+        '''
+            Insert Data
+            Raise error in case of failure
+        '''   
+        try:
+            with self.conn.cursor() as cursor:
+                cursor.execute(insertstmt)
+            self.conn.commit()    
         except mysql.connector.Error as ex:
             raise ex    
             
