@@ -1,7 +1,7 @@
 def Unqlist(lst):
     '''
     Returns duplicate elements in list
-    '''    
+    '''   
     dpl = []
     for elm in lst:
         if lst.count(elm) >1 and elm  not in dpl:

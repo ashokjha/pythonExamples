@@ -4,6 +4,7 @@ def addmult(l):
     '''
     sumeven = 0
     sumodd = 0
+    
     for i in range(len(l)):
         if (l[i] % 2 == 0):
            sumeven = sumeven + l[i]
