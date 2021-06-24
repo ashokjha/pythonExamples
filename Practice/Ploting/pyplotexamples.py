@@ -47,9 +47,31 @@ class graphsample:
         
         pyplot.legend(loc='upper center')
         
-        pyplot.show()        
+        pyplot.show()    
+        
+    def barpie(self) :
+        '''
+            Draw Pie Chart
+        
+            Refact @TODO
+        '''
+        pyplot.title("2021 estimates")
+        pyplot.figure(figsize=(50,100))
+        #pyplot.pie([1,2,3,4,5], labels= ['A','B','C','D','E'],autopct="%1.1f%%")
+        pyplot.pie(ChartData.pop, labels= ChartData.stdata,autopct="%1.1f%%")
+        #pyplot.xlabel(' State ')
+        pyplot.yticks(rotation=30, ha='left')
 
+
+        
+        #pyplot.legend(loc='upper center')
+        
+        pyplot.show() 
+
+        
 gs=graphsample()
 gs.linegraph()
 
 gs.barsample()
+
+gs.barpie()
