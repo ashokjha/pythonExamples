@@ -1,1 +1,4 @@
 **/__pycache__/
+.pytest_cache/
+Bootstrap5.0.2/
+Practice/HTML
