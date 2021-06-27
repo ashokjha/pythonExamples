@@ -12,19 +12,29 @@ O - 1
 R – 1
 T – 1
 '''
-orgs = input("Original String:\n").strip()
-dct={}
-for c in orgs:
-         dct[c] = dct.get(c, 0) + 1
-vowelcount = 0
-conscont = 0
+def letterfrequency(line) :
+    dct={}
+    for c in line:
+        dct[c] = dct.get(c, 0) + 1    
+    return dct
 
-for item in dct.items():
-    if  item[0] in 'aeiouAEIOU':
-        vowelcount = vowelcount + item[1]
-    elif not item[0].isspace():
-        conscont = conscont + item[1]     
+def cntvowelcon(line) :
+    dct=letterfrequency(line)
+    vowelcount = 0
+    conscont = 0
+    
+    for item in dct.items():
+        if  item[0] in 'aeiouAEIOU':
+            vowelcount = vowelcount + item[1]
+        elif not item[0].isspace():
+            conscont = conscont + item[1]    
+    return vowelcount, conscont
+
+line = input("Original String:\n")
+dct=letterfrequency(line)
+for item in dct.items(): 
     print(item[0],item[1],sep='-')
+vowelcount, conscont = cntvowelcon(line)
 print("number of vowels : ",vowelcount)
 print("number of consonants : ",conscont) 
 

@@ -12,15 +12,22 @@ AFTER ARRANGING: A IN TIME NINE SAVES STITCH
 NO OF WORDS: 02
 '''
 
+def sortwordasc(line):
+    wordsl = (line.strip()).split()
+    wordsl.sort(key=len)
+    return " ".join(wordsl)
+
 def startwithVowel(w):
     return w[0] in 'AEIOUaeiou'
 
-line = input("INPUT: ")
-wordsl = (line.strip()).split()
-wordsl.sort(key=len)
-print("Output:")
-print(" ".join(wordsl))
-numoword = sum(startwithVowel(word) for word in wordsl) 
-print("NO OF WORDS:",numoword)
+def numofwordstwiVowel(line):
+    numofw = 0
+    for w in line.split():
+        if startwithVowel(w):
+            numofw = numofw +1
+    return numofw
 
-
+if __name__ == '__main__':
+    line = input("INPUT: ")
+    print(sortwordasc(line))
+    print("NO OF WORDS:{:02d}".format(numofwordstwiVowel(line)))

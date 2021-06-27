@@ -55,23 +55,18 @@ class graphsample:
         
             Refact @TODO
         '''
-        pyplot.title("2021 estimates")
         pyplot.figure(figsize=(50,100))
         #pyplot.pie([1,2,3,4,5], labels= ['A','B','C','D','E'],autopct="%1.1f%%")
-        pyplot.pie(ChartData.pop, labels= ChartData.stdata,autopct="%1.1f%%")
-        #pyplot.xlabel(' State ')
-        pyplot.yticks(rotation=30, ha='left')
+        pyplot.pie(ChartData.pop, labels= ChartData.stdata,autopct='%1.1f%%', shadow=True, startangle=140)
+        pyplot.title("2021 estimated population", bbox={'facecolor':'0.8', 'pad':5})
 
-
-        
-        #pyplot.legend(loc='upper center')
-        
-        pyplot.show() 
+        #pyplot.show() 
+        pyplot.savefig('population2021pie.png')
 
         
 gs=graphsample()
-gs.linegraph()
+#gs.linegraph()
 
-gs.barsample()
+#gs.barsample()
 
 gs.barpie()

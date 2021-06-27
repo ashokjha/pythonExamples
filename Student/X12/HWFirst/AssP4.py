@@ -6,14 +6,17 @@ Next Time There Won't Be A Next Time
 Output:
 A Be There Won't    
 '''
-orgs = input("Original String:\n")
-orgsl = orgs.split()
-dct = {}
-for d in orgsl:
-     if(orgs.count(d)>1):
-         orgs = orgs.replace(d,'')
 
-orgsl = orgs.strip().split()
-orgsl.sort()
-revs=" ".join(orgsl)
-print("Output:",revs,sep='\n')
+def removedplAndsort(line, des=True):
+    words = line.split()
+    uword = []
+    for d in words:
+         if d not in uword and words.count(d)==1:
+             uword.append(d)
+    
+    uword.sort()
+    return " ".join(uword)
+    
+orgs = input("Original String:\n")
+
+print("Output:",removedplAndsort(orgs))

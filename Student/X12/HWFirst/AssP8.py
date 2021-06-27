@@ -10,14 +10,32 @@ Count of Palindrome words: 2
 Longest word: love
 '''
 def ispalindrome(w):
-    return w==w[-1::-1]
+    return w == w[-1::-1]
 
-line = input("Sample Input: ")
-wordsl = (line.strip()).split()
+def numberOfpalindrome(line):
+    wordsl=line.split()
+    numoword = sum(ispalindrome(word) for word in wordsl) 
+    return numoword
+
+def firstlongestword(line):
+    words=line.split()
+    dct = {}
+    for w in words:
+        wl=len(w)
+        ll=dct.get(wl,[])
+        ll.append(w)
+        dct[wl]= ll
+    lst = list(dct.keys())
+    lst.sort()      
+    return dct[lst[-1]][0]if lst else ''
+
+line = input("Input: ")
+
+
 print("Sample Output:")
-wordsl.sort(key=len,reverse=True)
-print("AFTER ARRANGING:"," ".join(wordsl))
-numoword = sum(ispalindrome(word) for word in wordsl) 
-print("Count of Palindrome words:",numoword)
-print("Longest word:",wordsl[0])
+
+print("Count of Palindrome words:",numberOfpalindrome(line))
+
+print("Longest word:",firstlongestword(line))
+
 

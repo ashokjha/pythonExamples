@@ -10,14 +10,30 @@ Addition: {'a': 10, 'b': 13, 'c': 6,’d’: 6}
 Subtraction: {‘a’:10,‘ b': 3, 'c': 0,’d’:6}
 '''
 
+
+def addct(d1,d2) :
+    add = {}
+    print(d1)
+    print(d2)
+    for k,v in d1.items():
+        add[k]=v
+    for k,v  in d2.items():
+        add[k] = add.get(k,0) + v 
+    return add
+    
+def diffdct(d1,d2) :
+    dff = {}
+    for k,v in d1.items() :
+        dff[k]=v
+    for k,v in d2.items():
+        dff[k] = abs(dff.get(k,0)-v) 
+    return dff
+
+
+
 dict1 = eval(input("Enter First Dictionary: ")) 
 dict2 = eval(input("Enter Second Dictionary: "))
-print("Output:")
-add = dict1.copy()
-for key in dict2.keys():
-    add[key] = dict1.get(key,0)+dict2.get(key,0)
-print(add)
-diff1=dict1.copy()
-for key in dict2.keys():
-    diff1[key] = abs(dict1.get(key,0)-dict2.get(key,0))
-print(diff1)    
+
+print(addct(dict1,dict2))
+
+print(diffdct(dict1,dict2))    
