@@ -87,7 +87,7 @@ class TechAnalysis:
         '''
         if not isinstance(d, int) or d < 1:
             raise ValueError("Not a a positive Number")
-        self.data["MvA"] = self.data[col].rolling(10).mean()
+        self.data["MVA"] = self.data[col].rolling(d).mean()
 
     def addExpAverage(self, s=10, col='Close'):
         '''
@@ -95,14 +95,14 @@ class TechAnalysis:
             s: Number of days to span a positive integer
             col: Data set column for moving average needed Default 'Close'
             Description : n exponential moving average (EMA) is a type of
-            moving average (MA) that places a greater weight and significance
+            moving average (MVA) that places a greater weight and significance
             on the most recent data points.The exponential moving average is
             also referred to as the exponentially weighted moving average
             Requisite data is available
         '''
         if not isinstance(s, int) or s < 1:
             raise ValueError("s: Span must be positive Number")
-        self.data["EMvA"] = self.data[col].ewm(span=10, adjust=False).mean()
+        self.data["EMA"] = self.data[col].ewm(span=s, adjust=False).mean()
 
     def printminima(self):
         '''
@@ -136,19 +136,19 @@ class TechAnalysis:
         self.addExpAverage(s=10, col='Close')
         fig, ax = plt.subplots()
         ax.set_title("Moving Average and Exponential Moving Average")
-        self.data[['MvA', 'EMvA']].plot(ax=ax)
+        self.data[['MVA', 'EMA']].plot(ax=ax)
         plt.show()
 
-    def drawavggraphL(self, ils=50):
+    def drawavggraphL(self, ils):
         '''
             Draw Moving and Exponential Moving Average Graph
-            ils: Starting Row Index e.g 50
+            ils: Starting Row Index 
         '''
         self.addMovingAverage(d=12, col='Close')
         self.addExpAverage(s=10, col='Close')
         fig, ax = plt.subplots()
         ax.set_title("Moving Average and Exponential Moving Average")
-        self.data[['MvA', 'EMvA']].iloc[ils:].plot(ax=ax)
+        self.data[['MVA', 'EMA']].iloc[ils:].plot(ax=ax)
 
     def drawactavggraphL(self, col='Close', ils=50):
         '''
@@ -160,8 +160,8 @@ class TechAnalysis:
         self.addExpAverage(s=10, col='Close')
         fig, ax = plt.subplots()
         ax.set_title("Actual, Moving Average and Exponential Moving Average")
-        self.data[['MvA', 'EMvA']].iloc[ils:].plot(ax=ax)
-        self.data[[col]].iloc[ils:].plot(ax=ax, alpha=0.25)
+        self.data[['MVA', 'EMA']].iloc[ils:].plot(ax=ax)
+        self.data[[col]].iloc[ils:].plot(ax=ax, alpha=0.25, color='r')
 
 
 if __name__ == "__main__":
@@ -183,6 +183,6 @@ if __name__ == "__main__":
           ta.data['Close'].idxmax())
     ta.drawvolatilitygraph()
     ta.drawavggraph()
-    ta.drawavggraphL(ils=60)
-    ta.drawactavggraphL()
+    ta.drawavggraphL(ils=len(ta.data)//2)
+    ta.drawactavggraphL(ils=len(ta.data)//2)
     print(ta.data.head())
