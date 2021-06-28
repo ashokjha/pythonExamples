@@ -15,9 +15,9 @@ Calculation
 
 Sochastic oscillator:A stochastic oscillator is a momentum indicator comparing
 a particular closing price of a security to a range of its prices over a
-certain period of time. The sensitivity of the oscillator to market movements 
+certain period of time. The sensitivity of the oscillator to market movements
 is reducible by adjusting that time period or by taking a moving average of the
-result.It is used to generate overbought and oversold trading signals, 
+result.It is used to generate overbought and oversold trading signals,
 utilizing a 0–100 bounded range of values.
 
 Calculation
@@ -30,17 +30,17 @@ Calculation
 """
 
 import pandas as pd
-import numpy as np
+
 from matplotlib import pyplot as plt
 
 data = pd.read_csv("data/AAPL.csv", index_col=0, parse_dates=True)
 print(data.head())
 
 # MACD
-exp1=data['Close'].ewm(span=12,adjust=False).mean()
-exp2=data['Close'].ewm(span=26,adjust=False).mean()
-data['MACD']=exp1-exp2
-data['Signal Line']=data['MACD'].ewm(span=9,adjust=False).mean()
+exp1 = data['Close'].ewm(span=12, adjust=False).mean()
+exp2 = data['Close'].ewm(span=26, adjust=False).mean()
+data['MACD'] = exp1-exp2
+data['Signal Line'] = data['MACD'].ewm(span=9, adjust=False).mean()
 print(data.head())
 fig, ax = plt.subplots()
 
