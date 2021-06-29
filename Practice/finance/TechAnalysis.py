@@ -34,7 +34,7 @@ class TechAnalysis:
             '''
                 Example used csv file
             '''
-            self.data = pd.read_csv(TechAnalysis.DATA_FILE, index_col=0,
+            self.data = pd.read_csv(self.DATA_FILE, index_col=0,
                                     parse_dates=True)
         else:
             '''
@@ -142,7 +142,7 @@ class TechAnalysis:
     def drawavggraphL(self, ils):
         '''
             Draw Moving and Exponential Moving Average Graph
-            ils: Starting Row Index 
+            ils: Starting Row Index
         '''
         self.addMovingAverage(d=12, col='Close')
         self.addExpAverage(s=10, col='Close')
@@ -162,6 +162,62 @@ class TechAnalysis:
         ax.set_title("Actual, Moving Average and Exponential Moving Average")
         self.data[['MVA', 'EMA']].iloc[ils:].plot(ax=ax)
         self.data[[col]].iloc[ils:].plot(ax=ax, alpha=0.25, color='r')
+
+    def macdGraph(self):
+        '''
+            MACD, MACD, short for moving average convergence/divergence, is a
+            trading indicator used in technical analysis of stock prices.
+            The MACD indicator(or "oscillator") is a collection of three time
+            series calculated from historical price data, most often the
+            closing price. These three series are: the MACD series proper,
+            the "signal" or "average" series, and the "divergence" series which
+            is the difference between the two
+
+            Calculation
+                MACD=12-Period EMA-26-Period EMA
+                Singal line 9 - period EMA of MACD
+        '''
+        exp1 = self.data['Close'].ewm(span=12, adjust=False).mean()
+        exp2 = self.data['Close'].ewm(span=26, adjust=False).mean()
+        self.data['MACD'] = exp1-exp2
+        self.data['Signal Line'] = self.data['MACD'].ewm(
+                span=9, adjust=False).mean()
+        fig, ax = plt.subplots()
+        ax.set_title("MACD Graph")
+        self.data[['MACD', 'Signal Line']].plot(ax=ax)
+        self.data['Close'].plot(ax=ax, alpha=0.25, secondary_y=True, color='r')
+        self.data[['MACD', 'Signal Line']].plot(ax=ax)
+        self.data['Close'].plot(ax=ax, alpha=0.25, secondary_y=True, color='r')
+
+    def sochasticoscGraph(self):
+        '''
+        Sochastic oscillator:A stochastic oscillator is a momentum indicator
+        comparing a particular closing price of a security to a range of its
+        prices over a certain period of time. The sensitivity of the oscillator
+        to market movements is reducible by adjusting that time period or by
+        taking a moving average of the result.It is used to generate overbought
+        and oversold trading signals, utilizing a 0–100 bounded range of
+        values.
+
+        Calculation
+        14-high: Maximum of last 14 trading days
+        14-low: Minimum of last 14 trading days
+        %K: (last close-14-low)*100/(14-high-14-low))
+        %D: Simple Moving Average of %K (preferable 3 days)
+        '''
+        # Sochastic oscillator
+        high14 = self.data['High'].rolling(14).max()
+        low14 = self.data['Low'].rolling(14).min()
+        self.data['%K'] = (self.data['Close']-low14)*100/(high14-low14)
+        self.data['%D'] = self.data['%K'].rolling(3).mean()
+
+        fig, ax = plt.subplots()
+        ax.set_title("Sochastic oscillator")
+        self.data[['%K', '%D']].iloc[3*len(self.data)//4:].plot(ax=ax)
+        ax.axhline(80, c='r', alpha=0.3)
+        ax.axhline(20, c='r', alpha=0.3)
+        self.data[['Close']].iloc[3*len(self.data)//4:].plot(
+                ax=ax, alpha=0.3, secondary_y=True)
 
 
 if __name__ == "__main__":
@@ -185,4 +241,6 @@ if __name__ == "__main__":
     ta.drawavggraph()
     ta.drawavggraphL(ils=len(ta.data)//2)
     ta.drawactavggraphL(ils=len(ta.data)//2)
+    ta.macdGraph()
+    ta.sochasticoscGraph()
     print(ta.data.head())

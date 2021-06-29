@@ -29,35 +29,13 @@ Calculation
 @author: Ashok Kumar Jha
 """
 
-import pandas as pd
+from TechAnalysis import TechAnalysis
 
-from matplotlib import pyplot as plt
-
-data = pd.read_csv("data/AAPL.csv", index_col=0, parse_dates=True)
-print(data.head())
+ta = TechAnalysis()
 
 # MACD
-exp1 = data['Close'].ewm(span=12, adjust=False).mean()
-exp2 = data['Close'].ewm(span=26, adjust=False).mean()
-data['MACD'] = exp1-exp2
-data['Signal Line'] = data['MACD'].ewm(span=9, adjust=False).mean()
-print(data.head())
-fig, ax = plt.subplots()
-
-data[['MACD', 'Signal Line']].plot(ax=ax)
-data['Close'].plot(ax=ax, alpha=0.25, secondary_y=True, color='r')
+ta.macdGraph()
 
 # Sochastic oscillator
-high14 = data['High'].rolling(14).max()
-low14 = data['Low'].rolling(14).min()
-data['%K'] = (data['Close']-low14)*100/(high14-low14)
-data['%D'] = data['%K'].rolling(3).mean()
-print(data.tail())
-
-fig1, ax1 = plt.subplots()
-
-data[['%K', '%D']].iloc[3*len(data)//4:].plot(ax=ax1)
-ax1.axhline(80, c='r', alpha=0.3)
-ax1.axhline(20, c='r', alpha=0.3)
-data[['Close']].iloc[3*len(data)//4:].plot(
-        ax=ax1, alpha=0.3, secondary_y=True)
+ta.sochasticoscGraph()
+print(ta.data.head())
