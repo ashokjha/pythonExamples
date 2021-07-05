@@ -15,3 +15,5 @@ xrw.createma10Chart()
 xrw.createmacdChart()
 xrw.createsochasticChart()
 xrw.clean()
+
+#https://www.youtube.com/watch?v=zoyzoNClXE4
