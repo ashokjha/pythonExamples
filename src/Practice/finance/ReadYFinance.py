@@ -7,7 +7,7 @@ Created on Sat Jun 26 20:01:30 2021
 
 
 import fix_yahoo_finance as fyf
-from pandas_datareader import data as pdr
+import pandas_datareader  as pdr
 
 from datetime import datetime as dt
 #import calendar

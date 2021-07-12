@@ -6,8 +6,10 @@ Created on Wed Jun 30 16:57:48 2021
 """
 import numpy as np
 import pandas_datareader.data as pdr
+#import fix_yahoo_finance as yr
 import datetime as dt
 
+#yr.pdr_override()
 
 #Start Time
 '''

@@ -1,4 +1,5 @@
 **/__pycache__/
 .pytest_cache/
+.spyproject/
 Bootstrap5.0.2/
 Practice/HTML

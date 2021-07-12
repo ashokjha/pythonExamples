@@ -134,7 +134,7 @@ import datetime as dt
 tickers = ['AAPL', 'MSFT','TWTR','IBM']
 start = dt.datetime(2020, 1, 1)
 
-data = pdr.get_data_yahoo(tickers, start)
+data = pdr.data.get_data_yahoo(tickers, start)
 data = data['Adj Close']
 print(data)
 
@@ -188,14 +188,14 @@ and 0,03% to IBM is optimal.
 This can be visualized as follows in an Efficient Frontier.
 '''
 
-import matplotlib.pyplot as plt
+
 
 
 #Resulting in this chart.
-fig, ax = plt.subplots()
-ax.scatter(exp_vols, exp_rtns, c=sharpe_ratios)
-ax.scatter(exp_vols[sharpe_ratios.argmax()], exp_rtns[sharpe_ratios.argmax()], c='r')
-ax.set_xlabel('Expected Volatility')
-ax.set_ylabel('Expected Return')
+# fig1, ax1 = plt.subplots()
+# ax1.scatter(exp_vols, exp_rtns, c=sharpe_ratios)
+# ax1.scatter(exp_vols[sharpe_ratios.argmax()], exp_rtns[sharpe_ratios.argmax()], c='r')
+# ax1.set_xlabel('Expected Volatility')
+# ax1.set_ylabel('Expected Return')
 
 

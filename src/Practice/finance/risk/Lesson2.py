@@ -8,7 +8,7 @@ Created on Thu Jul  8 16:37:36 2021
 """
 
 import numpy as np
-import pandas_datareader.data as pdr
+import pandas_datareader as pdr
 import datetime as dt
 import pandas as pd
 import fix_yahoo_finance as fyf
@@ -24,10 +24,10 @@ How to visualize the volatility.
 start = dt.datetime(2020,1,1)
 
 
-# fyf.pdr_override()
+fyf.pdr_override()
 
 # time series data of the historic stock prices of Netflix (ticker NFLX).
-data = pdr.get_data_yahoo("NFLX", start) 
+data = pdr.data.get_data_yahoo("NFLX", start) 
 
 '''
 Average True Range (ATR) is a technical analysis indicator,

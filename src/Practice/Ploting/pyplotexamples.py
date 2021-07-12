@@ -70,3 +70,4 @@ gs=graphsample()
 #gs.barsample()
 
 gs.barpie()
+gs.linegraph()

@@ -24,7 +24,7 @@ def getYFData(cfg):
 
 
 
-'''
+
 import pandas_datareader as pdr
 import datetime as dt
  
@@ -35,4 +35,3 @@ end = dt.datetime(2020, 12, 31)
 data = pdr.get_data_yahoo(ticker, start, end)
 
 print(data)
-'''
