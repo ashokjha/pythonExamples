@@ -13,7 +13,7 @@ Calculate with Column
 import pandas as pd
 from matplotlib import pyplot as plt
 from configparser import RawConfigParser
-import Practice.finance.ReadYFinance as ryf
+import src.Practice.finance.ReadYFinance as ryf
 
 
 class TechAnalysis:

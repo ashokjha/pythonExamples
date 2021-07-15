@@ -12,8 +12,7 @@ from datetime import datetime
 
 config = RawConfigParser()
 config.read('appconfig.properties')
-
-if __name__ == '__main__' :
+def testdbactivity():
     dbconf=dict(config.items('DB SECTION'))
     dbc = dbconnection(dbconf) 
     try:
@@ -40,3 +39,8 @@ if __name__ == '__main__' :
         print(ex)
     finally:
         dbc.closedbconnection()
+    
+
+if __name__ == '__main__' :
+    testdbactivity()
+ 

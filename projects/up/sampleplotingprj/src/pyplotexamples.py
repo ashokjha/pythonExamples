@@ -65,9 +65,7 @@ class graphsample:
 
         
 gs=graphsample()
-#gs.linegraph()
-
-#gs.barsample()
-
-gs.barpie()
 gs.linegraph()
+gs.barsample()
+gs.barpie()
+

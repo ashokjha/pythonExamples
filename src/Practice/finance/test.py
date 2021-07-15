@@ -32,6 +32,5 @@ ticker = "AAPL"
 start = dt.datetime(2019, 1, 1)
 end = dt.datetime(2020, 12, 31)
  
-data = pdr.get_data_yahoo(ticker, start, end)
-
-print(data)
+data = pdr.yahoo.daily.YahooDailyReader(ticker)
+print(data.read())
