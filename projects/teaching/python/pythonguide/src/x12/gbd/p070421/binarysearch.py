@@ -5,7 +5,6 @@ Created on Mon Jul  5 21:05:18 2021
 @author: Ashok Kumar Jha
 """
 
-from math import floor
 
 def binary_search(data, searchterm):
     '''
@@ -28,7 +27,7 @@ def binary_search(data, searchterm):
     R = n-1
     
     while L <= R:
-        mid = floor((L+R)/2)
+        mid = (L+R)//2
         if data[mid] < searchterm:
             L = mid + 1
         elif data[mid] > searchterm:
