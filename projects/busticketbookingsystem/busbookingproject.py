@@ -2,7 +2,7 @@
 """
 Created on Fri Dec 24 17:47:53 2021
 
-@author: Abhiroop
+@author: Ashok Kumar Jha
 """
 # Menu driven application for bus booking
 

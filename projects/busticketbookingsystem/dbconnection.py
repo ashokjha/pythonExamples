@@ -2,7 +2,7 @@
 """
 Created on Fri Dec 24 17:49:25 2021
 
-@author: Abhiroop
+@author: Ashok Kumar Jha
 """
 
 import mysql.connector as mycon
